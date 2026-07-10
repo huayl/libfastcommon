@@ -1,11 +1,3 @@
-Copyright (C) 2010 Happy Fish / YuQing
-
-libfastcommon may be copied only under the terms of the Less GNU General
-Public License(LGPL).
-Please visit the libfastcommon Home Page for more detail.
-English language: https://github.com/happyfish100/libfastcommon
-Chinese language: http://www.fastken.com/
-
 
 c common functions library extracted from my open source projects FastDFS and 
 FastDHT. this library is very simple and stable.
@@ -14,11 +6,13 @@ some functions are wrappered into php extension, such as fastcommon_gethostaddrs
      fastcommon_id_generator_xxx, fastcommon_get_ifconfigs, fastcommon_get_sysinfo etc.
 
 C function including:
+
   logger: [logger.h] asynchronously sync to disk for high performance, thread safe,
           log rotate, auto delete old log files, compress log file etc.
 
   ini file reader: [ini_file_reader.h] support sections marked by [SectionName]
           support a config item ocurs multiple times for multiple values, such as:
+```
              tracker_server = ip1
              tracker_server = ip2
           #include directive to include other ini file
@@ -26,6 +20,7 @@ C function including:
           #@set directive to set variables for condition of #@if directive
           support control statements for special purpose as:
               #@if, #@else, #@endif, #@for, #@endfor
+```
           for more detail, please see [ini file reader guide](doc/ini_file_reader-Chinese.md)
 
   id generator: [id_generator.h] generate unique 64 bits integer ID for multi processes
