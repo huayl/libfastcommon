@@ -10,20 +10,24 @@ C function including:
   logger: [logger.h] asynchronously sync to disk for high performance, thread safe,
           log rotate, auto delete old log files, compress log file etc.
 
-  ini file reader: [ini_file_reader.h] support sections marked by [SectionName]
+  ini file reader: [ini_file_reader.h] support sections marked by [SectionName],
           support a config item ocurs multiple times for multiple values, such as:
 ```
-             tracker_server = ip1
-             tracker_server = ip2
-          #include directive to include other ini file
-          #@function directive for annotation
-          #@set directive to set variables for condition of #@if directive
-          support control statements for special purpose as:
-              #@if, #@else, #@endif, #@for, #@endfor
+    tracker_server = ip1
+    tracker_server = ip2
 ```
-          for more detail, please see [ini file reader guide](doc/ini_file_reader-Chinese.md)
 
-  id generator: [id_generator.h] generate unique 64 bits integer ID for multi processes
+```
+  #include directive to include other ini file
+  #@function directive for annotation
+  #@set directive to set variables for condition of #@if directive
+  support control statements for special purpose as:
+    #@if, #@else, #@endif, #@for, #@endfor
+```
+
+     for more detail, please see [ini file reader guide](doc/ini_file_reader-Chinese.md)
+
+  id generator: [id_generator.h] generate unique 64 bits integer ID for multi processes.
               for more detail, please see [id generator description](doc/id_generator-Chinese.md)
 
   string operation: [shared_func.h] uppercase, lowercase, trim etc.
