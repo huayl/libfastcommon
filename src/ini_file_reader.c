@@ -299,6 +299,11 @@ static char *doReplaceVars(IniContext *pContext, const char *param,
 {
 #define VARIABLE_TAG_MIN_LENGTH  4   //%{v}
 
+#define ENV_VAR_NAME_STARTWITH_STR  "env::"
+#define ENV_VAR_NAME_STARTWITH_LEN  (sizeof(ENV_VAR_NAME_STARTWITH_STR) - 1)
+
+#define ENV_VARIABLE_MARK_STR       "%{"ENV_VAR_NAME_STARTWITH_STR
+
     SetDirectiveVars *set;
     const char *p;
     const char *e;
@@ -319,11 +324,13 @@ static char *doReplaceVars(IniContext *pContext, const char *param,
 
     set = iniGetVars(pContext);
     if (set == NULL || set->vars == NULL) {
-        logWarning("file: "__FILE__", line: %d, "
-                "NO set directives before, set value to %s",
-                __LINE__, param);
-        fc_strlcpy(output, param, FAST_INI_ITEM_VALUE_SIZE);
-        return output;
+        if (strstr(param, ENV_VARIABLE_MARK_STR) == NULL) {
+            logWarning("file: "__FILE__", line: %d, "
+                    "NO set directives before, set value to %s",
+                    __LINE__, param);
+            fc_strlcpy(output, param, FAST_INI_ITEM_VALUE_SIZE);
+            return output;
+        }
     }
 
     pEnd = param + strlen(param);
@@ -354,8 +361,17 @@ static char *doReplaceVars(IniContext *pContext, const char *param,
             *(name + name_len) = '\0';
             fc_trim(name);
             name_len = strlen(name);
-            if (name_len > 0) {
-                value = (char *)fc_hash_find(set->vars, name, name_len);
+            if (name_len > ENV_VAR_NAME_STARTWITH_LEN &&
+                    memcmp(name, ENV_VAR_NAME_STARTWITH_STR,
+                        ENV_VAR_NAME_STARTWITH_LEN) == 0)
+            {
+                value = getenv(name + ENV_VAR_NAME_STARTWITH_LEN);
+            } else if (name_len > 0) {
+                if (set != NULL && set->vars != NULL) {
+                    value = (char *)fc_hash_find(set->vars, name, name_len);
+                } else {
+                    value = NULL;
+                }
             } else {
                 value = NULL;
             }

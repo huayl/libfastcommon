@@ -1,4 +1,7 @@
 
+Version 1.87  2026-07-10
+ * ini_file_readers can refer env variable such as %{env::FASTDFS_IPADDR}
+
 Version 1.86  2026-06-26
   * add function fc_parse_version
   * change return type of format_ip_address and format_ip_port

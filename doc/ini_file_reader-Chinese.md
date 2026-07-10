@@ -37,7 +37,8 @@ libfastcommon是在github开源的⼀个C函数库。它提供了ini⽂件解析
       [index]表示获取指定序号的本机IP，0表示获取第一个IP，-1表示获取最后一个IP，
       例如：[0]、inner[-1], outer[1]等等
     II. SHELL_EXEC 获取命令⾏输出，执行的command为配置项
-    III. REPLACE_VARS  替换配置项中%{VARIABLE}格式的变量，变量由#@set指令设置
+    III. REPLACE_VARS  替换配置项中%{VARIABLE}格式的变量，普通变量由#@set指令设置。
+       可以引用环境变量，格式为 %{env::VARIABLE}，例如 %{env::FASTDFS_IPADDR}
 ```
 
 ```
