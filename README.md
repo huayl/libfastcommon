@@ -25,7 +25,7 @@ C function including:
     #@if, #@else, #@endif, #@for, #@endfor
 ```
 
-     for more detail, please see [ini file reader guide](doc/ini_file_reader-Chinese.md)
+  for more detail, please see [ini file reader guide](doc/ini_file_reader-Chinese.md)
 
   id generator: [id_generator.h] generate unique 64 bits integer ID for multi processes.
               for more detail, please see [id generator description](doc/id_generator-Chinese.md)
@@ -73,5 +73,5 @@ C function including:
 
   char convert: [char_converter.h] and [char_convert_loader.h] for fast char convert
 
-detail info please see the c header files.
+  more detail info please see the c header files.
 
