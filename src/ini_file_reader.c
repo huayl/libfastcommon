@@ -375,20 +375,19 @@ static char *doReplaceVars(IniContext *pContext, const char *param,
             } else {
                 value = NULL;
             }
+
             if (value != NULL) {
                 len = strlen(value);
-            }
-            else {
+            } else {
                 logWarning("file: "__FILE__", line: %d, "
-                        "name: %s NOT found, keep the origin",
+                        "variable \"%s\" NOT found, keep the origin",
                         __LINE__, name);
                 value = start - 2;
                 len = p - value;
             }
             pDest += iniCopyBuffer(pDest, FAST_INI_ITEM_VALUE_SIZE -
                     (pDest - output), value, len);
-        }
-        else {
+        } else {
             if (pDest - output < FAST_INI_ITEM_VALUE_LEN) {
                 *pDest++ = *p++;
             }
