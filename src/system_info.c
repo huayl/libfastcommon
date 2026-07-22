@@ -118,12 +118,13 @@ int get_sys_cpu_count()
 int get_boot_time(struct timeval *boot_time)
 {
 #ifdef OS_LINUX
+    const int64_t offset = 0;
     char buff[256];
     int64_t bytes;
     struct sysinfo si;
 
     bytes = sizeof(buff);
-    if (getFileContentEx("/proc/uptime", buff, 0, &bytes) == 0)
+    if (getFileContentEx("/proc/uptime", buff, offset, &bytes) == 0)
     {
         double uptime;
         double btime;
@@ -621,6 +622,7 @@ static void parse_proc_stat(char *buff, const int len,
 
 int get_processes(struct fast_process_info **processes, int *count)
 {
+    const int64_t offset = 0;
     const char *dirname = "/proc";
     char filename[128];
     char buff[4096];
@@ -679,7 +681,7 @@ int get_processes(struct fast_process_info **processes, int *count)
 
         sprintf(filename, "%s/%s/stat", dirname, ent->d_name);
         bytes = sizeof(buff);
-        if (getFileContentEx(filename, buff, 0, &bytes) != 0)
+        if (getFileContentEx(filename, buff, offset, &bytes) != 0)
         {
             continue;
         }

@@ -878,7 +878,7 @@ int getFileContentEx1(int fd, const char *filename, char *buff,
  *  	size: specify the size to fetch and return the fetched size
  *  return: error no , 0 success, != 0 fail
 */
-int getFileContentEx(const char *filename, char *buff, \
+int getFileContentEx(const char *filename, char *buff,
 		int64_t offset, int64_t *size);
 
 /** get file size

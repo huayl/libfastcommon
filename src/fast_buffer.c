@@ -180,6 +180,7 @@ int fast_buffer_append_binary(FastBuffer *buffer,
 
 int fast_buffer_append_file(FastBuffer *buffer, const char *filename)
 {
+    const int64_t offset = 0;
     struct stat st;
     int result;
     int64_t file_size;
@@ -213,7 +214,7 @@ int fast_buffer_append_file(FastBuffer *buffer, const char *filename)
     }
 
     if ((result=getFileContentEx(filename, buffer->data + buffer->length,
-                    0, &file_size)) != 0)
+                    offset, &file_size)) != 0)
     {
         return result;
     }

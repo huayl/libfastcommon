@@ -24,6 +24,7 @@
 
 int get_pid_from_file(const char *pidFilename, pid_t *pid)
 {
+  const int64_t offset = 0;
   char buff[32];
   int64_t file_size;
   int result;
@@ -33,7 +34,7 @@ int get_pid_from_file(const char *pidFilename, pid_t *pid)
   }
 
   file_size = sizeof(buff);
-  if ((result=getFileContentEx(pidFilename, buff, 0, &file_size)) != 0) {
+  if ((result=getFileContentEx(pidFilename, buff, offset, &file_size)) != 0) {
     return result;
   }
 
@@ -183,12 +184,13 @@ static const char *process_get_exename(const char* program)
 static const char *get_exename_by_pid(const pid_t pid, char *buff,
         const int buff_size, int *result)
 {
+    const int64_t offset = 0;
     char cmdfile[MAX_PATH_SIZE];
     int64_t cmdsz;
 
     cmdsz = buff_size;
     sprintf(cmdfile, "/proc/%d/cmdline", pid);
-    if ((*result=getFileContentEx(cmdfile, buff, 0, &cmdsz)) != 0) {
+    if ((*result=getFileContentEx(cmdfile, buff, offset, &cmdsz)) != 0) {
         fprintf(stderr, "read file %s fail, errno: %d, error info: %s\n",
                 cmdfile, *result, strerror(*result));
         return NULL;

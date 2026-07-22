@@ -4090,12 +4090,13 @@ int fc_check_rename_ex(const char *oldpath, const char *newpath,
 int fc_get_first_line(const char *filename, char *buff,
         const int buff_size, string_t *line)
 {
+    const int64_t offset = 0;
     int result;
     int64_t read_bytes;
     char *line_end;
 
     read_bytes = buff_size - 1;
-    if ((result=getFileContentEx(filename, buff, 0, &read_bytes)) != 0) {
+    if ((result=getFileContentEx(filename, buff, offset, &read_bytes)) != 0) {
         FC_SET_STRING_EMPTY(*line, buff);
         return result;
     }
@@ -4121,6 +4122,7 @@ int fc_get_first_line(const char *filename, char *buff,
 int fc_get_first_lines(const char *filename, char *buff,
         const int buff_size, string_t *lines, int *count)
 {
+    const int64_t offset = 0;
     int result;
     int target_count;
     int64_t read_bytes;
@@ -4134,7 +4136,7 @@ int fc_get_first_lines(const char *filename, char *buff,
     }
 
     read_bytes = buff_size - 1;
-    if ((result=getFileContentEx(filename, buff, 0, &read_bytes)) != 0) {
+    if ((result=getFileContentEx(filename, buff, offset, &read_bytes)) != 0) {
         *count = 0;
         FC_SET_STRING_EMPTY(*lines, buff);
         return result;
