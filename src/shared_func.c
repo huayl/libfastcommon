@@ -3283,6 +3283,7 @@ static int format_bytes_string(const int64_t input_bytes,
         }
         p = buff + fc_itoa(n, buff);
     }
+
     return p - buff;
 }
 
