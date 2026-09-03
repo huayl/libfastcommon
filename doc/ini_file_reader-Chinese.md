@@ -10,7 +10,7 @@ libfastcommon是在github开源的⼀个C函数库。它提供了ini⽂件解析
 ## ini_file_reader的主要特点：
 
 ### 1、⽀持section
-例如: 
+例如:
 ```
 [workers]
 threads = 4

@@ -70,12 +70,21 @@ const char *local_host_ip_addrs_to_string(char *buff, const int size)
 
 	len = snprintf(buff, size, "local_host_ip_count: %d,",
             g_local_host_ip_count);
+    if (len >= size)
+    {
+        return buff;
+    }
+
 	pEnd = g_local_host_ip_addrs +
 		IP_ADDRESS_SIZE * g_local_host_ip_count;
 	for (p=g_local_host_ip_addrs; p<pEnd; p+=IP_ADDRESS_SIZE)
-	{
-		len += snprintf(buff + len, size - len, "  %s", p);
-	}
+    {
+        len += snprintf(buff + len, size - len, "  %s", p);
+        if (len >= size)
+        {
+            break;
+        }
+    }
 
     return buff;
 }

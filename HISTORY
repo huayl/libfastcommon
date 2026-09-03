@@ -1,4 +1,7 @@
 
+Version 1.88  2026-09-03
+ * local_host_ip_addrs_to_string: fix buffer overflow
+
 Version 1.87  2026-07-10
  * ini_file_readers can refer env variable such as %{env::FASTDFS_IPADDR}
 
