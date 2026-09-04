@@ -1,6 +1,8 @@
 
-Version 1.88  2026-09-03
+Version 1.88  2026-09-04
  * local_host_ip_addrs_to_string: fix buffer overflow
+ * shared_func.[hc]: add function parse_timestamp
+ * ini_file_reader.[hc]: add function iniGetTimestampValueEx
 
 Version 1.87  2026-07-10
  * ini_file_readers can refer env variable such as %{env::FASTDFS_IPADDR}

@@ -140,6 +140,10 @@ extern "C" {
 #define iniGetPercentValue(ini_ctx, item_name, item_value, default_value) \
     iniGetPercentValueEx(ini_ctx, item_name, item_value, default_value, false)
 
+#define iniGetTimestampValue(szSectionName, szItemName, pContext, nDefaultValue) \
+    iniGetTimestampValueEx(szSectionName, szItemName, \
+            pContext, nDefaultValue, 1, false)
+
 #define iniGetByteValue(szSectionName, szItemName, pContext, nDefaultValue) \
     iniGetByteValueEx(szSectionName, szItemName, \
             pContext, nDefaultValue, 1, false)
@@ -423,6 +427,22 @@ int64_t iniGetByteCorrectValueEx(IniFullContext *pIniContext,
         const char *szItemName, const int64_t nDefaultValue,
         const int nDefaultUnitBytes, const int64_t nMinValue,
         const int64_t nMaxValue, const bool bRetryGlobal);
+
+/** get item timestamp value (64 bits integer)
+ *  parameters:
+ *           szSectionName: the section name, NULL or empty string for
+ *                          global section
+ *           szItemName: the item name
+ *           pContext:   the ini context
+ *           nDefaultValue: the default value
+ *           nDefaultUnitBytes: the default timestamp unit, such as 1 for second, 86400 for day
+ *           bRetryGlobal: if fetch from global section when the item not exist
+ *  return: int64 value, return nDefaultValue when the item not exist
+*/
+int64_t iniGetTimestampValueEx(const char *szSectionName,
+        const char *szItemName, IniContext *pContext,
+        const int64_t nDefaultValue, const int nDefaultUnitTS,
+        const bool bRetryGlobal);
 
 /** get item boolean value
  *  parameters:

@@ -3531,3 +3531,26 @@ int iniGetPercentValueEx(IniFullContext *ini_ctx,
 
     return 0;
 }
+
+int64_t iniGetTimestampValueEx(const char *szSectionName,
+        const char *szItemName, IniContext *pContext,
+        const int64_t nDefaultValue, const int nDefaultUnitTS,
+        const bool bRetryGlobal)
+{
+    char *pValue;
+    int64_t nValue;
+
+    pValue = iniGetStrValueEx(szSectionName,
+            szItemName, pContext, bRetryGlobal);
+    if (pValue == NULL)
+    {
+        return nDefaultValue;
+    }
+
+    if (parse_timestamp(pValue, nDefaultUnitTS, &nValue) != 0)
+    {
+        return nDefaultValue;
+    }
+
+    return nValue;
+}

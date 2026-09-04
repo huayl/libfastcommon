@@ -2484,6 +2484,88 @@ int parse_bytes(const char *pStr, const int default_unit_bytes, int64_t *bytes)
     return result;
 }
 
+int parse_timestamp(const char *str, const int default_unit_secs, int64_t *seconds)
+{
+	char *pReservedEnd;
+    int result;
+
+	pReservedEnd = NULL;
+	*seconds = strtoll(str, &pReservedEnd, 10);
+	if (*seconds < 0)
+    {
+        logError("file: "__FILE__", line: %d, "
+                "timestamp: %"PRId64" < 0, input string: %s",
+                __LINE__, *seconds, str);
+        return EINVAL;
+    }
+
+	if (pReservedEnd == NULL || *pReservedEnd == '\0')
+	{
+		*seconds *= default_unit_secs;
+        return 0;
+	}
+
+	if (*pReservedEnd == ' ' || *pReservedEnd == '\t')
+    {
+        do {
+            ++pReservedEnd;
+        } while (*pReservedEnd == ' ' || *pReservedEnd == '\t');
+
+        if (*pReservedEnd == '\0')
+        {
+            *seconds *= default_unit_secs;
+            return 0;
+        }
+    }
+
+	if (*(pReservedEnd + 1) != '\0')
+    {
+        logError("file: "__FILE__", line: %d, "
+                "unkown timestamp unit: \"%s\", input string: \"%s\"",
+                __LINE__, pReservedEnd, str);
+        return EINVAL;
+    }
+
+    switch (*pReservedEnd)
+    {
+        case 's':
+            result = 0;
+            break;
+        case 'm':
+            *seconds *= 60;
+            result = 0;
+            break;
+        case 'h':
+            *seconds *= 3600;
+            result = 0;
+            break;
+        case 'd':
+            *seconds *= 86400;
+            result = 0;
+            break;
+        case 'W':
+            *seconds *= 7 * 86400;
+            result = 0;
+            break;
+        case 'M':
+            *seconds *= 30 * 86400;
+            result = 0;
+            break;
+        case 'Y':
+            *seconds *= 365 * 86400;
+            result = 0;
+            break;
+        default:
+            result = EINVAL;
+            logError("file: "__FILE__", line: %d, "
+                    "unkown timestamp unit: \"%s\", input string: \"%s\"",
+                    __LINE__, pReservedEnd, str);
+            break;
+    }
+
+    return result;
+}
+
 int set_rand_seed()
 {
     time_t ts;

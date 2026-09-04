@@ -979,11 +979,21 @@ int fc_compare_int64_ptr(const int64_t *n1, const int64_t *n2);
 /** parse bytes
  *  parameters:
  *  	pStr: the string to parse
- *  	default_unit_bytes: default unit if not specified the unit like MB etc.
+ *  	default_unit_bytes: default unit if not specified, the unit like MB etc.
  *  	bytes: store the parsed bytes
  *  return: error no , 0 success, != 0 fail
 */
 int parse_bytes(const char *pStr, const int default_unit_bytes, int64_t *bytes);
+
+/** parse timestamp
+ *  parameters:
+ *  	str: the string to parse
+ *  	default_unit_secs: default unit if not specified
+ *  	seconds: store the parsed seconds
+ *  return: error no , 0 success, != 0 fail
+*/
+int parse_timestamp(const char *str, const int default_unit_secs, int64_t *seconds);
+
 
 /** set rand seed
  *  return: error no , 0 success, != 0 fail
